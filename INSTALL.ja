@@ -1,0 +1,42 @@
+	☆ 日本語Z39.50クライアントEtaのインストール方法 ☆
+
+							たかくまさお
+							masao@ulis.ac.jp
+
+1. EtaのインストールにはGTK+ライブラリ、YAZライブラリ、libxmlライブラ
+   リが必要です。
+
+  ・GTK+ライブラリ（GTK+ v2.0以上）
+	以下から入手できます。
+	http://www.gtk.org/
+  ・YAZライブラリ
+	以下から入手できます。
+	http://www.indexdata.dk/yaz/
+  ・libxmlライブラリ
+	以下から入手できます。
+	http://xmlsoft.org/
+
+2. コンパイルする。configureスクリプトを動かし、makeする。
+
+	% ./configure	[RETURN]
+	% make	[RETURN]
+
+  configureスクリプトには、YAZライブラリの位置などをオプションとして与
+  えることができます。
+	% ./configure --with-yazconfig=/home/masao/bin [RETURN]
+	% make	[RETURN]
+
+  注意: OS標準のmakeではエラーが出る場合があります。その場合には、GNU make
+        を使用してください。
+
+3. make installする。
+
+	% su	[RETURN]
+	Password: ******	[RETURN]
+	# make install	[RETURN]
+
+	デフォルトでは以下の場所にインストールされます。
+	  /usr/local/bin/eta	:Etaプログラム（実行形式）
+	  
+	  /usr/local/share/eta/dblist.xml	:接続画面に表示される
+						 サーバリスト

@@ -1,0 +1,43 @@
+	== How to install Eta, a Z39.50 client ==
+
+
+1. Eta requires the GTK+ library, YAZ library and libxml
+   library. Before you install the Eta, you must install those
+   libraries. Each of them are freely available from their own sites. 
+
+  * GTK+ library (GTK+-v2.0 or later version)
+	- http://www.gtk.org/
+  * YAZ library (YAZ-1.7 or later version)
+	Newer version is required as possible as you can get. (We
+	recommend latest version with CVS anonymous access)
+	- http://www.indexdata.dk/yaz/
+  ¡¦libxml library (libxml-1.8.6 or later version)
+	- http://xmlsoft.org/
+
+2. Compile. (configure and make)
+
+	% ./configure	[RETURN]
+	% make	[RETURN]
+
+  You specify the configure's option you like. (e.g. location path of
+  YAZ library)
+	% ./configure --with-yazconfig=/home/masao/bin [RETURN]
+	% make	[RETURN]
+
+  Note: You get something errors with "make" of your OS's default. In
+        this case, you might use the GNU make.
+
+3. make install
+
+	% su	[RETURN]
+	Password: ******	[RETURN]
+	# make install	[RETURN]
+
+	In default settings, programs is installed following locations:
+	  /usr/local/bin/eta	:Eta command (executable format)
+	  
+	  /usr/local/share/eta/dblist.xml	:default server list
+						 (shown in connect window)
+
+--
+masao@ulis.ac.jp

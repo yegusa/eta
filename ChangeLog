@@ -1,3 +1,11 @@
+2001-07-13  Masao Takaku  <masao@ulis.ac.jp>
+
+	* INSTALL.generic: original one.
+
+	* INSTALL: Add eta's install instruction.
+
+	* src/z3950.c: Change indentation style.
+
 2001-07-12  Masao Takaku  <masao@ulis.ac.jp>
 
 	* src/Makefile.am, src/callbacks.c, src/callbacks.h, src/dblist.c,

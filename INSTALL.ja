@@ -7,9 +7,10 @@
 
   ・GTK+ライブラリ（GTK+ v2.0以上）
 	http://www.gtk.org/
-  ・YAZライブラリ
+  ・YAZライブラリ（YAZ-1.7以上）
+	できるだけ新しい物を使ってください。（CVS経由で取得したもの）
 	http://www.indexdata.dk/yaz/
-  ・libxmlライブラリ
+  ・libxmlライブラリ（libxml 1.8.6以上）
 	http://xmlsoft.org/
 
 2. コンパイルする。configureスクリプトを動かし、makeする。

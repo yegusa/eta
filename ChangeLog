@@ -1,0 +1,9 @@
+2001-07-11  Masao Takaku  <masao@ulis.ac.jp>
+
+	* INSTALL.ja: Add some notices for versions of required libraries.
+
+	* configure.in (AM_PATH_GLIB): Remove macro.
+
+	* src/Makefile.am (dblist_LDADD): Use @GTK_LIBS@ instead of
+	@GLIB_LIBS@.
+

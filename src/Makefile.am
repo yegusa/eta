@@ -19,5 +19,4 @@ dblist_SOURCES = dblist.c dblist.h
 
 eta_LDADD = @GTK_LIBS@ @YAZLIB@ @INTLLIBS@
 
-dblist_LDADD = @GLIB_LIBS@ @XML_LIBS@
-dblist_CFLAGS = -pedantic @CFLAGS@
+dblist_LDADD = @GTK_LIBS@ @XML_LIBS@

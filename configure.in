@@ -14,8 +14,6 @@ dnl Check for GTK+ and GLib
 dnl
 AM_PATH_GTK(1.2.0, ,
             AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))
-AM_PATH_GLIB(1.2.0, ,
-	    AC_MSG_ERROR(Cannot find Glib: Is glib-config in path?))
 
 dnl
 dnl Check for YAZ

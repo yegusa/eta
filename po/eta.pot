@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-19 02:47+0900\n"
+"POT-Creation-Date: 2001-07-07 11:25+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
-#: src/interface.c:66
+#: src/interface.c:66 src/interface.c:214
 msgid "File"
 msgstr ""
 
@@ -26,12 +26,20 @@ msgstr ""
 msgid "Exit"
 msgstr ""
 
-#: src/interface.c:90
+#: src/interface.c:90 src/interface.c:221
 msgid "Help"
 msgstr ""
 
 #: src/interface.c:105
 msgid "About..."
+msgstr ""
+
+#: src/interface.c:198
+msgid "window2"
+msgstr ""
+
+#: src/interface.c:236
+msgid "Search!"
 msgstr ""
 
 #: src/support.c:121

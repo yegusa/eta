@@ -36,6 +36,7 @@ on_button1_clicked                     (GtkButton       *button,
     if (! cmd_open(gtk_entry_get_text(GTK_ENTRY(user_data)))) {
 	puts("cmd_open: failed\n");
     }
+    
 }
 
 

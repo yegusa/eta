@@ -47,7 +47,7 @@ create_window1 (void)
   gtk_object_set_data (GTK_OBJECT (window1), "window1", window1);
   gtk_container_set_border_width (GTK_CONTAINER (window1), 1);
   gtk_window_set_title (GTK_WINDOW (window1), _("Connect"));
-  gtk_window_set_default_size (GTK_WINDOW (window1), 500, 500);
+  gtk_window_set_default_size (GTK_WINDOW (window1), 500, 300);
 
   vbox1 = gtk_vbox_new (FALSE, 0);
   gtk_widget_ref (vbox1);
@@ -196,6 +196,7 @@ create_window2 (void)
   window2 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_object_set_data (GTK_OBJECT (window2), "window2", window2);
   gtk_window_set_title (GTK_WINDOW (window2), _("window2"));
+  gtk_window_set_default_size (GTK_WINDOW (window2), 500, 500);
 
   vbox2 = gtk_vbox_new (FALSE, 0);
   gtk_widget_ref (vbox2);
@@ -231,7 +232,7 @@ create_window2 (void)
   gtk_object_set_data_full (GTK_OBJECT (window2), "hbox2", hbox2,
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (hbox2);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, FALSE, 0);
 
   button2 = gtk_button_new_with_label (_("Search!"));
   gtk_widget_ref (button2);
@@ -239,6 +240,7 @@ create_window2 (void)
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (button2);
   gtk_box_pack_start (GTK_BOX (hbox2), button2, FALSE, FALSE, 0);
+  gtk_widget_set_usize (button2, -2, 24);
 
   entry2 = gtk_entry_new ();
   gtk_widget_ref (entry2);
@@ -290,5 +292,67 @@ create_window2 (void)
                       NULL);
 
   return window2;
+}
+
+GtkWidget*
+create_window3 (void)
+{
+  GtkWidget *window3;
+  GtkWidget *vbox3;
+  GtkWidget *label1;
+  GtkWidget *hbox3;
+  GtkWidget *button3;
+  GtkWidget *button4;
+
+  window3 = gtk_window_new (GTK_WINDOW_POPUP);
+  gtk_object_set_data (GTK_OBJECT (window3), "window3", window3);
+  gtk_window_set_title (GTK_WINDOW (window3), _("window3"));
+  gtk_window_set_position (GTK_WINDOW (window3), GTK_WIN_POS_MOUSE);
+  gtk_window_set_modal (GTK_WINDOW (window3), TRUE);
+
+  vbox3 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_ref (vbox3);
+  gtk_object_set_data_full (GTK_OBJECT (window3), "vbox3", vbox3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (vbox3);
+  gtk_container_add (GTK_CONTAINER (window3), vbox3);
+
+  label1 = gtk_label_new (_("Really quit ??"));
+  gtk_widget_ref (label1);
+  gtk_object_set_data_full (GTK_OBJECT (window3), "label1", label1,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (label1);
+  gtk_box_pack_start (GTK_BOX (vbox3), label1, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label1), 20, 20);
+
+  hbox3 = gtk_hbox_new (TRUE, 0);
+  gtk_widget_ref (hbox3);
+  gtk_object_set_data_full (GTK_OBJECT (window3), "hbox3", hbox3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (hbox3);
+  gtk_box_pack_start (GTK_BOX (vbox3), hbox3, FALSE, FALSE, 0);
+
+  button3 = gtk_button_new_with_label (_("OK"));
+  gtk_widget_ref (button3);
+  gtk_object_set_data_full (GTK_OBJECT (window3), "button3", button3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (button3);
+  gtk_box_pack_start (GTK_BOX (hbox3), button3, FALSE, FALSE, 0);
+
+  button4 = gtk_button_new_with_label (_("Cancel"));
+  gtk_widget_ref (button4);
+  gtk_object_set_data_full (GTK_OBJECT (window3), "button4", button4,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (button4);
+  gtk_box_pack_start (GTK_BOX (hbox3), button4, FALSE, FALSE, 0);
+
+  gtk_signal_connect (GTK_OBJECT (button3), "clicked",
+                      GTK_SIGNAL_FUNC (gtk_main_quit),
+                      NULL);
+  gtk_signal_connect (GTK_OBJECT (button4), "clicked",
+                      GTK_SIGNAL_FUNC (gtk_widget_destroy),
+                      NULL);
+
+  return window3;
 }
 

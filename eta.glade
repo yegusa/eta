@@ -26,7 +26,7 @@
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
   <default_width>500</default_width>
-  <default_height>500</default_height>
+  <default_height>300</default_height>
   <allow_shrink>False</allow_shrink>
   <allow_grow>True</allow_grow>
   <auto_shrink>False</auto_shrink>
@@ -193,6 +193,8 @@
   <type>GTK_WINDOW_TOPLEVEL</type>
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
+  <default_width>500</default_width>
+  <default_height>500</default_height>
   <allow_shrink>False</allow_shrink>
   <allow_grow>True</allow_grow>
   <auto_shrink>False</auto_shrink>
@@ -245,8 +247,8 @@
       <spacing>0</spacing>
       <child>
 	<padding>0</padding>
-	<expand>True</expand>
-	<fill>True</fill>
+	<expand>False</expand>
+	<fill>False</fill>
       </child>
 
       <widget>

@@ -9,14 +9,34 @@ AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
+dnl
+dnl Check for GTK+ and GLib
+dnl
 AM_PATH_GTK(1.2.0, ,
             AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))
+AM_PATH_GLIB(1.2.0, ,
+	    AC_MSG_ERROR(Cannot find Glib: Is glib-config in path?))
 
+dnl
+dnl Check for YAZ
+dnl
 YAZ_INIT
 if test "$YAZVERSION" = "NONE"; then
     AC_MSG_ERROR([You need the YAZ package first.
     available from http://www.indexdata.dk/yaz/])
 fi
+
+dnl
+dnl Check for libxml (gnome-xml)
+dnl
+AC_PATH_PROG(XML_CONFIG,xml-config,no)
+if test x$XML_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find xml-config please install the libxml package)
+fi
+XML_LIBS=`$XML_CONFIG --libs`
+XML_CFLAGS=`$XML_CONFIG --cflags`
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS="ja"

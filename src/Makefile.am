@@ -2,10 +2,11 @@
 
 localedir   = $(prefix)/$(DATADIRNAME)/locale
 
-INCLUDES = -I. -I$(srcdir) -I$(top_builddir) @GTK_CFLAGS@ @YAZINC@
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+INCLUDES = -I. -I$(srcdir) -I$(top_builddir) @GTK_CFLAGS@ @YAZINC@ @XML_CFLAGS@
 
 bin_PROGRAMS = eta
+noinst_PROGRAMS = dblist
 
 eta_SOURCES = \
 	main.c \
@@ -14,4 +15,9 @@ eta_SOURCES = \
 	callbacks.c callbacks.h \
 	z3950.c z3950.h
 
+dblist_SOURCES = dblist.c dblist.h
+
 eta_LDADD = @GTK_LIBS@ @YAZLIB@ @INTLLIBS@
+
+dblist_LDADD = @GLIB_LIBS@ @XML_LIBS@
+dblist_CFLAGS = -pedantic @CFLAGS@

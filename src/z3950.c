@@ -2272,3 +2272,177 @@ int main(int argc, char **argv)
     return client (opened);
 }
 #endif
+
+int z3950_callback(char* word, char* arg)
+{
+    static struct {
+        char *cmd;
+        int (*fun)(char *arg);
+        char *ad;
+    } cmd[] = {
+        {"open", cmd_open, "('tcp'|'osi')':'[<tsel>'/']<host>[':'<port>]"},
+        {"quit", cmd_quit, ""},
+        {"find", cmd_find, "<query>"},
+        {"delete", cmd_delete, "<setname>"},
+        {"base", cmd_base, "<base-name>"},
+        {"show", cmd_show, "<rec#>['+'<#recs>['+'<setname>]]"},
+        {"scan", cmd_scan, "<term>"},
+        {"sort", cmd_sort, "<sortkey> <flag> <sortkey> <flag> ..."},
+        {"sort+", cmd_sort_newset, "<sortkey> <flag> <sortkey> <flag> ..."},
+        {"authentication", cmd_authentication, "<acctstring>"},
+        {"lslb", cmd_lslb, "<largeSetLowerBound>"},
+        {"ssub", cmd_ssub, "<smallSetUpperBound>"},
+        {"mspn", cmd_mspn, "<mediumSetPresentNumber>"},
+        {"status", cmd_status, ""},
+        {"setnames", cmd_setnames, ""},
+        {"cancel", cmd_cancel, ""},
+        {"format", cmd_format, "<recordsyntax>"},
+        {"schema", cmd_schema, "<schema>"},
+        {"elements", cmd_elements, "<elementSetName>"},
+        {"close", cmd_close, ""},
+        {"attributeset", cmd_attributeset, "<attrset>"},
+        {"querytype", cmd_querytype, "<type>"},
+        {"refid", cmd_refid, "<id>"},
+        {"itemorder", cmd_itemorder, "ill|item <itemno>"},
+        {"update", cmd_update, "<item>"},
+	{"packagename", cmd_packagename, "<packagename>"},
+#if 0
+#ifdef ASN_COMPILED
+        /* Server Admin Functions */
+        {"adm-reindex", cmd_adm_reindex, "<database-name>"},
+        {"adm-truncate", cmd_adm_truncate, "('database'|'index')<object-name>"},
+        {"adm-create", cmd_adm_create, ""},
+        {"adm-drop", cmd_adm_drop, "('database'|'index')<object-name>"},
+        {"adm-import", cmd_adm_import, "<record-type> <dir> <pattern>"},
+        {"adm-refresh", cmd_adm_refresh, ""},
+        {"adm-commit", cmd_adm_commit, ""},
+        {"adm-shutdown", cmd_adm_shutdown, ""},
+        {"adm-startup", cmd_adm_startup, ""},
+#endif
+#endif
+        {0,0}
+    };
+    char *netbuffer= 0;
+    int netbufferlen = 0;
+    int i;
+    Z_APDU *apdu;
+#if HAVE_GETTIMEOFDAY
+    struct timeval tv_start, tv_end;
+    gettimeofday (&tv_start, 0);
+#endif
+
+        int res;
+#if HAVE_GETTIMEOFDAY
+            gettimeofday (&tv_start, 0);
+#endif
+            for (i = 0; cmd[i].cmd; i++)
+                if (!strncmp(cmd[i].cmd, word, strlen(word)))
+                {
+                    res = (*cmd[i].fun)(arg);
+                    break;
+                }
+            if (!cmd[i].cmd)
+            {
+                printf("Unknown command: %s.\n", word);
+                res = 1;
+            }
+	    printf ("%s: result: %d\n", word, res);
+            if (res < 2)
+            {
+		printf ("%s: result: %d\n", word, res);
+                return 1;
+            }
+        if (conn)
+        {
+            do
+            {
+                if ((res = cs_get(conn, &netbuffer, &netbufferlen)) < 0)
+                {
+                    perror("cs_get");
+                    exit(1);
+                }
+                if (!res)
+                {
+                    printf("Target closed connection.\n");
+                    exit(1);
+                }
+                odr_reset(in); /* release APDU from last round */
+                record_last = 0;
+                odr_setbuf(in, netbuffer, res, 0);
+                if (!z_APDU(in, &apdu, 0, 0))
+                {
+                    odr_perror(in, "Decoding incoming APDU");
+                    fprintf(stderr, "[Near %d]\n", odr_offset(in));
+                    fprintf(stderr, "Packet dump:\n---------\n");
+                    odr_dumpBER(stderr, netbuffer, res);
+                    fprintf(stderr, "---------\n");
+                    if (apdu_file)
+                        z_APDU(print, &apdu, 0, 0);
+                    exit(1);
+                }
+                if (apdu_file && !z_APDU(print, &apdu, 0, 0))
+                {
+                    odr_perror(print, "Failed to print incoming APDU");
+                    odr_reset(print);
+                    continue;
+                }
+                switch(apdu->which)
+                {
+                case Z_APDU_initResponse:
+                    process_initResponse(apdu->u.initResponse);
+                    break;
+                case Z_APDU_searchResponse:
+                    process_searchResponse(apdu->u.searchResponse);
+                    break;
+                case Z_APDU_scanResponse:
+                    process_scanResponse(apdu->u.scanResponse);
+                    break;
+                case Z_APDU_presentResponse:
+                    print_refid (apdu->u.presentResponse->referenceId);
+                    setno +=
+                        *apdu->u.presentResponse->numberOfRecordsReturned;
+                    if (apdu->u.presentResponse->records)
+                        display_records(apdu->u.presentResponse->records);
+                    else
+                        printf("No records.\n");
+                    printf ("nextResultSetPosition = %d\n",
+                        *apdu->u.presentResponse->nextResultSetPosition);
+                    break;
+                case Z_APDU_sortResponse:
+                    process_sortResponse(apdu->u.sortResponse);
+                    break;
+                case Z_APDU_extendedServicesResponse:
+                    printf("Got extended services response\n");
+                    process_ESResponse(apdu->u.extendedServicesResponse);
+                    break;
+                case Z_APDU_close:
+                    printf("Target has closed the association.\n");
+                    process_close(apdu->u.close);
+                    break;
+                case Z_APDU_resourceControlRequest:
+                    process_resourceControlRequest
+                        (apdu->u.resourceControlRequest);
+                    break;
+                case Z_APDU_deleteResultSetResponse:
+                    process_deleteResultSetResponse(apdu->u.
+                                                    deleteResultSetResponse);
+                    break;
+                default:
+                    printf("Received unknown APDU type (%d).\n", 
+                           apdu->which);
+                    exit(1);
+                }
+            }
+            while (conn && cs_more(conn));
+#if HAVE_GETTIMEOFDAY
+            gettimeofday (&tv_end, 0);
+            if (1)
+            {
+                printf ("Elapsed: %.6f\n", (double) tv_end.tv_usec /
+                                                1e6 + tv_end.tv_sec -
+                   ((double) tv_start.tv_usec / 1e6 + tv_start.tv_sec));
+            }
+#endif
+	}
+    return 0;
+}

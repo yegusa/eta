@@ -37,3 +37,5 @@ extern int cmd_show(char *arg);
 extern int cmd_open(char *arg);
 
 extern void initialize(void);
+
+extern int z3950_callback(char *, char *);

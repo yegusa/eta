@@ -55,8 +55,8 @@ void
 connect_action (gchar* str)
 {
     GtkWidget* window;
-    if (! cmd_open(str)) {
-	puts("cmd_open: failed\n");
+    if (z3950_callback("open", str)) {
+	puts("open: failed\n");
     } else {
 	window = create_window2();
 	gtk_widget_show (window);
@@ -70,7 +70,7 @@ connect_action (gchar* str)
 void
 search_action (gchar* str)
 {
-    cmd_find(str);
+    z3950_callback("find", str);
 }
 
 void
@@ -113,4 +113,5 @@ exit_confirm(void)
     GtkWidget* window = create_window3();
     gtk_widget_show (window);
 }
+
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-07-07 11:25+0900\n"
+"POT-Creation-Date: 2001-07-09 07:25+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,29 +18,45 @@ msgstr ""
 msgid "Connect"
 msgstr "接続"
 
-#: src/interface.c:66 src/interface.c:214
+#: src/interface.c:66 src/interface.c:224
 msgid "File"
 msgstr "ファイル"
 
-#: src/interface.c:80
+#: src/interface.c:80 src/interface.c:238
 msgid "Exit"
 msgstr "終了"
 
-#: src/interface.c:90 src/interface.c:221
+#: src/interface.c:90 src/interface.c:245
 msgid "Help"
 msgstr "ヘルプ"
 
-#: src/interface.c:105
+#: src/interface.c:105 src/interface.c:260
 msgid "About..."
 msgstr "このソフトウェアについて..."
 
-#: src/interface.c:198
+#: src/interface.c:207
 msgid "window2"
 msgstr ""
 
-#: src/interface.c:236
+#: src/interface.c:274
 msgid "Search!"
+msgstr "検索!"
+
+#: src/interface.c:357
+msgid "window3"
 msgstr ""
+
+#: src/interface.c:368
+msgid "Really quit ??"
+msgstr "ほんとに終了しますか？"
+
+#: src/interface.c:383
+msgid "OK"
+msgstr ""
+
+#: src/interface.c:390
+msgid "Cancel"
+msgstr "キャンセル"
 
 #: src/support.c:121
 #, c-format

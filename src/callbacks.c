@@ -96,7 +96,7 @@ void
 on_file1_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-
+    
 }
 
 
@@ -113,5 +113,3 @@ exit_confirm(void)
     GtkWidget* window = create_window3();
     gtk_widget_show (window);
 }
-
-

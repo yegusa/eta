@@ -714,13 +714,16 @@ static int process_searchResponse(Z_SearchResponse *res)
         printf("Search was a success.\n");
     else
         printf("Search was a bloomin' failure.\n");
+
     printf("Number of hits: %d, setno %d\n",
         *res->resultCount, setnumber);
+
     printf("records returned: %d\n",
         *res->numberOfRecordsReturned);
     setno += *res->numberOfRecordsReturned;
     if (res->records)
         display_records(res->records);
+
     return 0;
 }
 
@@ -2346,10 +2349,8 @@ int z3950_callback(char* word, char* arg)
                 printf("Unknown command: %s.\n", word);
                 res = 1;
             }
-	    printf ("%s: result: %d\n", word, res);
             if (res < 2)
             {
-		printf ("%s: result: %d\n", word, res);
                 return 1;
             }
         if (conn)

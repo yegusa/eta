@@ -186,7 +186,13 @@ create_window2 (void)
   GtkWidget *vbox2;
   GtkWidget *menubar2;
   GtkWidget *file1;
+  GtkWidget *file1_menu;
+  GtkAccelGroup *file1_menu_accels;
+  GtkWidget *exit;
   GtkWidget *help2;
+  GtkWidget *help2_menu;
+  GtkAccelGroup *help2_menu_accels;
+  GtkWidget *about;
   GtkWidget *hbox2;
   GtkWidget *button2;
   GtkWidget *entry2;
@@ -222,6 +228,20 @@ create_window2 (void)
   gtk_widget_show (file1);
   gtk_container_add (GTK_CONTAINER (menubar2), file1);
 
+  file1_menu = gtk_menu_new ();
+  gtk_widget_ref (file1_menu);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "file1_menu", file1_menu,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (file1), file1_menu);
+  file1_menu_accels = gtk_menu_ensure_uline_accel_group (GTK_MENU (file1_menu));
+
+  exit = gtk_menu_item_new_with_label (_("Exit"));
+  gtk_widget_ref (exit);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "exit", exit,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (exit);
+  gtk_container_add (GTK_CONTAINER (file1_menu), exit);
+
   help2 = gtk_menu_item_new_with_label (_("Help"));
   gtk_widget_ref (help2);
   gtk_object_set_data_full (GTK_OBJECT (window2), "help2", help2,
@@ -229,6 +249,20 @@ create_window2 (void)
   gtk_widget_show (help2);
   gtk_container_add (GTK_CONTAINER (menubar2), help2);
   gtk_menu_item_right_justify (GTK_MENU_ITEM (help2));
+
+  help2_menu = gtk_menu_new ();
+  gtk_widget_ref (help2_menu);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "help2_menu", help2_menu,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (help2), help2_menu);
+  help2_menu_accels = gtk_menu_ensure_uline_accel_group (GTK_MENU (help2_menu));
+
+  about = gtk_menu_item_new_with_label (_("About..."));
+  gtk_widget_ref (about);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "about", about,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (about);
+  gtk_container_add (GTK_CONTAINER (help2_menu), about);
 
   hbox2 = gtk_hbox_new (FALSE, 0);
   gtk_widget_ref (hbox2);
@@ -289,8 +323,14 @@ create_window2 (void)
   gtk_signal_connect (GTK_OBJECT (file1), "activate",
                       GTK_SIGNAL_FUNC (on_file1_activate),
                       NULL);
+  gtk_signal_connect (GTK_OBJECT (exit), "activate",
+                      GTK_SIGNAL_FUNC (on_exit_activate),
+                      NULL);
   gtk_signal_connect (GTK_OBJECT (help2), "activate",
                       GTK_SIGNAL_FUNC (on_help2_activate),
+                      NULL);
+  gtk_signal_connect (GTK_OBJECT (about), "activate",
+                      GTK_SIGNAL_FUNC (on_about_activate),
                       NULL);
   gtk_signal_connect (GTK_OBJECT (button2), "clicked",
                       GTK_SIGNAL_FUNC (on_button2_clicked),

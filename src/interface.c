@@ -167,9 +167,128 @@ create_window1 (void)
   gtk_signal_connect (GTK_OBJECT (about), "activate",
                       GTK_SIGNAL_FUNC (on_about_activate),
                       NULL);
+  gtk_signal_connect (GTK_OBJECT (button1), "clicked",
+                      GTK_SIGNAL_FUNC (on_button1_clicked),
+                      entry1);
 
   gtk_window_add_accel_group (GTK_WINDOW (window1), accel_group);
 
   return window1;
+}
+
+GtkWidget*
+create_window2 (void)
+{
+  GtkWidget *window2;
+  GtkWidget *vbox2;
+  GtkWidget *menubar2;
+  GtkWidget *file1;
+  GtkWidget *help2;
+  GtkWidget *hbox2;
+  GtkWidget *button2;
+  GtkWidget *entry2;
+  GtkWidget *scrolledwindow3;
+  GtkWidget *viewport2;
+  GtkWidget *list3;
+  GtkWidget *scrolledwindow2;
+  GtkWidget *text1;
+
+  window2 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_object_set_data (GTK_OBJECT (window2), "window2", window2);
+  gtk_window_set_title (GTK_WINDOW (window2), _("window2"));
+
+  vbox2 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_ref (vbox2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "vbox2", vbox2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (vbox2);
+  gtk_container_add (GTK_CONTAINER (window2), vbox2);
+
+  menubar2 = gtk_menu_bar_new ();
+  gtk_widget_ref (menubar2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "menubar2", menubar2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (menubar2);
+  gtk_box_pack_start (GTK_BOX (vbox2), menubar2, FALSE, FALSE, 0);
+
+  file1 = gtk_menu_item_new_with_label (_("File"));
+  gtk_widget_ref (file1);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "file1", file1,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (file1);
+  gtk_container_add (GTK_CONTAINER (menubar2), file1);
+
+  help2 = gtk_menu_item_new_with_label (_("Help"));
+  gtk_widget_ref (help2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "help2", help2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (help2);
+  gtk_container_add (GTK_CONTAINER (menubar2), help2);
+  gtk_menu_item_right_justify (GTK_MENU_ITEM (help2));
+
+  hbox2 = gtk_hbox_new (FALSE, 0);
+  gtk_widget_ref (hbox2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "hbox2", hbox2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (hbox2);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+
+  button2 = gtk_button_new_with_label (_("Search!"));
+  gtk_widget_ref (button2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "button2", button2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (button2);
+  gtk_box_pack_start (GTK_BOX (hbox2), button2, FALSE, FALSE, 0);
+
+  entry2 = gtk_entry_new ();
+  gtk_widget_ref (entry2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "entry2", entry2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (entry2);
+  gtk_box_pack_start (GTK_BOX (hbox2), entry2, TRUE, TRUE, 0);
+
+  scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_ref (scrolledwindow3);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "scrolledwindow3", scrolledwindow3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (scrolledwindow3);
+  gtk_box_pack_start (GTK_BOX (vbox2), scrolledwindow3, TRUE, TRUE, 0);
+
+  viewport2 = gtk_viewport_new (NULL, NULL);
+  gtk_widget_ref (viewport2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "viewport2", viewport2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (viewport2);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow3), viewport2);
+
+  list3 = gtk_list_new ();
+  gtk_widget_ref (list3);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "list3", list3,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (list3);
+  gtk_container_add (GTK_CONTAINER (viewport2), list3);
+
+  scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_ref (scrolledwindow2);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "scrolledwindow2", scrolledwindow2,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (scrolledwindow2);
+  gtk_box_pack_start (GTK_BOX (vbox2), scrolledwindow2, TRUE, TRUE, 0);
+
+  text1 = gtk_text_new (NULL, NULL);
+  gtk_widget_ref (text1);
+  gtk_object_set_data_full (GTK_OBJECT (window2), "text1", text1,
+                            (GtkDestroyNotify) gtk_widget_unref);
+  gtk_widget_show (text1);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow2), text1);
+
+  gtk_signal_connect (GTK_OBJECT (file1), "activate",
+                      GTK_SIGNAL_FUNC (on_file1_activate),
+                      NULL);
+  gtk_signal_connect (GTK_OBJECT (help2), "activate",
+                      GTK_SIGNAL_FUNC (on_help2_activate),
+                      NULL);
+
+  return window2;
 }
 

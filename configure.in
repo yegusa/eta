@@ -48,6 +48,12 @@ if test "x$GCC" = "xyes"; then
 fi
 changequote([,])dnl
 
+dnl
+dnl
+dnl
+
+YAZ_INIT
+
 AC_OUTPUT([
 Makefile
 src/Makefile

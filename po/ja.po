@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-19 00:22+0900\n"
+"POT-Creation-Date: 2001-06-19 02:47+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,29 +14,25 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/interface.c:45
+#: src/interface.c:49 src/interface.c:119
 msgid "Connect"
 msgstr "接続"
 
-#: src/interface.c:62
+#: src/interface.c:66
 msgid "File"
 msgstr "ファイル"
 
-#: src/interface.c:76
+#: src/interface.c:80
 msgid "Exit"
 msgstr "終了"
 
-#: src/interface.c:83
+#: src/interface.c:90
 msgid "Help"
 msgstr "ヘルプ"
 
-#: src/interface.c:98
+#: src/interface.c:105
 msgid "About..."
 msgstr "このソフトウェアについて..."
-
-#: src/interface.c:112
-msgid "Connext"
-msgstr "接続"
 
 #: src/support.c:121
 #, c-format

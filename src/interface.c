@@ -116,7 +116,7 @@ create_window1 (void)
   gtk_widget_show (hbox1);
   gtk_box_pack_start (GTK_BOX (vbox1), hbox1, FALSE, FALSE, 0);
 
-  button1 = gtk_button_new_with_label (_("Connext"));
+  button1 = gtk_button_new_with_label (_("Connect"));
   gtk_widget_ref (button1);
   gtk_object_set_data_full (GTK_OBJECT (window1), "button1", button1,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -150,7 +150,6 @@ create_window1 (void)
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (list2);
   gtk_container_add (GTK_CONTAINER (viewport1), list2);
-  gtk_list_set_selection_mode (GTK_LIST (list2), GTK_SELECTION_MULTIPLE);
 
   list1 = gtk_list_new ();
   gtk_widget_ref (list1);
@@ -160,7 +159,7 @@ create_window1 (void)
   gtk_box_pack_start (GTK_BOX (vbox1), list1, FALSE, FALSE, 0);
 
   gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
-                      GTK_SIGNAL_FUNC (gtk_widget_destroy),
+                      GTK_SIGNAL_FUNC (gtk_main_quit),
                       NULL);
   gtk_signal_connect (GTK_OBJECT (exit), "activate",
                       GTK_SIGNAL_FUNC (on_exit_activate),

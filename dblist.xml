@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<dblist>
+<database>
+<url>z39.50s://nile.ulis.ac.jp:11111/DC</url>
+<name>nile (Dublin Core - JAPAN MARC) ÆüËÜ¸ì</name>
+<recordsyntax>SUTRS</recordsyntax>
+</database>
+<database>
+<url>z39.50s://nile.ulis.ac.jp:9999/JPMARC</url>
+<name>nile(JAPAN MARC)</name>
+<recordsyntax>SUTRS</recordsyntax>
+</database>
+</dblist>

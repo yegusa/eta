@@ -240,7 +240,6 @@ create_window2 (void)
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (button2);
   gtk_box_pack_start (GTK_BOX (hbox2), button2, FALSE, FALSE, 0);
-  gtk_widget_set_usize (button2, -2, 24);
 
   entry2 = gtk_entry_new ();
   gtk_widget_ref (entry2);
@@ -290,6 +289,9 @@ create_window2 (void)
   gtk_signal_connect (GTK_OBJECT (help2), "activate",
                       GTK_SIGNAL_FUNC (on_help2_activate),
                       NULL);
+  gtk_signal_connect (GTK_OBJECT (button2), "clicked",
+                      GTK_SIGNAL_FUNC (on_button2_clicked),
+                      entry2);
 
   return window2;
 }
@@ -304,7 +306,7 @@ create_window3 (void)
   GtkWidget *button3;
   GtkWidget *button4;
 
-  window3 = gtk_window_new (GTK_WINDOW_POPUP);
+  window3 = gtk_window_new (GTK_WINDOW_DIALOG);
   gtk_object_set_data (GTK_OBJECT (window3), "window3", window3);
   gtk_window_set_title (GTK_WINDOW (window3), _("window3"));
   gtk_window_set_position (GTK_WINDOW (window3), GTK_WIN_POS_MOUSE);

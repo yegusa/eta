@@ -11,6 +11,7 @@
 
 #include "interface.h"
 #include "support.h"
+#include "z3950.h"
 
 int
 main (int argc, char *argv[])

@@ -2,12 +2,16 @@
 #  include <config.h>
 #endif
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+
 #include <gtk/gtk.h>
 
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
 #include "z3950.h"
+#include "dblist.h"
 
 static void exit_confirm (void);
 static void connect_action (gchar*);
@@ -63,6 +67,22 @@ connect_action (gchar* str)
     }
 }
 
+void
+on_clist1_select_row                   (GtkCList        *clist,
+                                        gint             row,
+                                        gint             column,
+                                        GdkEvent        *event,
+                                        gpointer         user_data)
+{
+    dblist *db;
+    
+    db = gtk_clist_get_row_data(GTK_CLIST(clist), row);
+    puts("on_clist_select_row");
+    print_database(db);
+
+    gtk_entry_set_text(GTK_ENTRY(user_data), (gchar*) db->url);
+}
+
 /*
  * In search window:
  */
@@ -91,6 +111,14 @@ on_entry2_activate                     (GtkEditable     *editable,
 }
 
 
+void
+on_list2_select_child                  (GtkList         *list,
+                                        GtkWidget       *widget,
+                                        gpointer         user_data)
+{
+    /* gtk_entry_set_text(GTK_ENTRY(user_data), ); */
+}
+
 
 void
 on_file1_activate                      (GtkMenuItem     *menuitem,
@@ -113,3 +141,4 @@ exit_confirm(void)
     GtkWidget* window = create_window3();
     gtk_widget_show (window);
 }
+

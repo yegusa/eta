@@ -7,37 +7,49 @@
 #  include <config.h>
 #endif
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+
 #include <gtk/gtk.h>
 
 #include "interface.h"
 #include "support.h"
 #include "z3950.h"
+#include "dblist.h"
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window1;
+    GtkWidget *window1, *list;
+    GList *dblist = NULL;
 
 #ifdef ENABLE_NLS
-  bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
-  textdomain (PACKAGE);
+    bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
+    textdomain (PACKAGE);
 #endif
 
-  gtk_set_locale ();
-  gtk_init (&argc, &argv);
+    gtk_set_locale ();
+    gtk_init (&argc, &argv);
 
-  add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
-  add_pixmap_directory (PACKAGE_SOURCE_DIR "/pixmaps");
+    add_pixmap_directory (PACKAGE_DATA_DIR "/pixmaps");
+    add_pixmap_directory (PACKAGE_SOURCE_DIR "/pixmaps");
 
-  /*
-   * The following code was added by Glade to create one of each component
-   * (except popup menus), just so that you see something after building
-   * the project. Delete any components that you don't want shown initially.
-   */
-  window1 = create_window1 ();
-  gtk_widget_show (window1);
+    /*
+     * The following code was added by Glade to create one of each component
+     * (except popup menus), just so that you see something after building
+     * the project. Delete any components that you don't want shown initially.
+     */
+    window1 = create_window1 ();
+    gtk_widget_show (window1);
 
-  initialize();
-  gtk_main ();
-  return 0;
+    dblist = parse_dblistfile(argv[1]);
+    if (dblist == NULL) {
+	fprintf( stderr, "Error parsing file '%s'\n", argv[1]);
+    }
+    list = lookup_widget (window1, "clist1");
+    dblist_append(dblist, list);
+
+    initialize();
+    gtk_main ();
+    return 0;
 }

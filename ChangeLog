@@ -1,3 +1,15 @@
+2001-07-12  Masao Takaku  <masao@ulis.ac.jp>
+
+	* src/Makefile.am, src/callbacks.c, src/callbacks.h, src/dblist.c,
+	dblist.h, main.c: Integrate dblist-related codes for Eta.
+
+	* eta.glade, src/interface.c: Change GUI.
+	Use GtkCList instead of GtkList.
+
+	* configure.in (CFLAGS): Disable "-pedantic".
+
+	* dblist.xml: Add encoding.
+
 2001-07-11  Masao Takaku  <masao@ulis.ac.jp>
 
 	* INSTALL.ja: Add some notices for versions of required libraries.

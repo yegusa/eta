@@ -35,10 +35,9 @@ create_window1 (void)
   GtkWidget *hbox1;
   GtkWidget *button1;
   GtkWidget *entry1;
-  GtkWidget *scrolledwindow1;
-  GtkWidget *viewport1;
-  GtkWidget *list2;
-  GtkWidget *list1;
+  GtkWidget *scrolledwindow4;
+  GtkWidget *clist1;
+  GtkWidget *label2;
   GtkAccelGroup *accel_group;
 
   accel_group = gtk_accel_group_new ();
@@ -46,7 +45,7 @@ create_window1 (void)
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_object_set_data (GTK_OBJECT (window1), "window1", window1);
   gtk_container_set_border_width (GTK_CONTAINER (window1), 1);
-  gtk_window_set_title (GTK_WINDOW (window1), _("Connect"));
+  gtk_window_set_title (GTK_WINDOW (window1), _("Eta"));
   gtk_window_set_default_size (GTK_WINDOW (window1), 500, 300);
 
   vbox1 = gtk_vbox_new (FALSE, 0);
@@ -130,33 +129,28 @@ create_window1 (void)
   gtk_widget_show (entry1);
   gtk_box_pack_start (GTK_BOX (hbox1), entry1, TRUE, TRUE, 0);
 
-  scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_ref (scrolledwindow1);
-  gtk_object_set_data_full (GTK_OBJECT (window1), "scrolledwindow1", scrolledwindow1,
+  scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_ref (scrolledwindow4);
+  gtk_object_set_data_full (GTK_OBJECT (window1), "scrolledwindow4", scrolledwindow4,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (scrolledwindow1);
-  gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
+  gtk_widget_show (scrolledwindow4);
+  gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow4, TRUE, TRUE, 0);
 
-  viewport1 = gtk_viewport_new (NULL, NULL);
-  gtk_widget_ref (viewport1);
-  gtk_object_set_data_full (GTK_OBJECT (window1), "viewport1", viewport1,
+  clist1 = gtk_clist_new (1);
+  gtk_widget_ref (clist1);
+  gtk_object_set_data_full (GTK_OBJECT (window1), "clist1", clist1,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (viewport1);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow1), viewport1);
+  gtk_widget_show (clist1);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow4), clist1);
+  gtk_clist_set_column_width (GTK_CLIST (clist1), 0, 80);
+  gtk_clist_column_titles_hide (GTK_CLIST (clist1));
 
-  list2 = gtk_list_new ();
-  gtk_widget_ref (list2);
-  gtk_object_set_data_full (GTK_OBJECT (window1), "list2", list2,
+  label2 = gtk_label_new (_("label2"));
+  gtk_widget_ref (label2);
+  gtk_object_set_data_full (GTK_OBJECT (window1), "label2", label2,
                             (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (list2);
-  gtk_container_add (GTK_CONTAINER (viewport1), list2);
-
-  list1 = gtk_list_new ();
-  gtk_widget_ref (list1);
-  gtk_object_set_data_full (GTK_OBJECT (window1), "list1", list1,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (list1);
-  gtk_box_pack_start (GTK_BOX (vbox1), list1, FALSE, FALSE, 0);
+  gtk_widget_show (label2);
+  gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label2);
 
   gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
                       GTK_SIGNAL_FUNC (gtk_main_quit),
@@ -173,6 +167,9 @@ create_window1 (void)
   gtk_signal_connect (GTK_OBJECT (entry1), "activate",
                       GTK_SIGNAL_FUNC (on_entry1_activate),
                       NULL);
+  gtk_signal_connect (GTK_OBJECT (clist1), "select_row",
+                      GTK_SIGNAL_FUNC (on_clist1_select_row),
+                      entry1);
 
   gtk_window_add_accel_group (GTK_WINDOW (window1), accel_group);
 
@@ -204,7 +201,7 @@ create_window2 (void)
 
   window2 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_object_set_data (GTK_OBJECT (window2), "window2", window2);
-  gtk_window_set_title (GTK_WINDOW (window2), _("window2"));
+  gtk_window_set_title (GTK_WINDOW (window2), _("Eta: Search"));
   gtk_window_set_default_size (GTK_WINDOW (window2), 500, 500);
 
   vbox2 = gtk_vbox_new (FALSE, 0);
@@ -320,14 +317,8 @@ create_window2 (void)
   gtk_widget_show (text1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow2), text1);
 
-  gtk_signal_connect (GTK_OBJECT (file1), "activate",
-                      GTK_SIGNAL_FUNC (on_file1_activate),
-                      NULL);
   gtk_signal_connect (GTK_OBJECT (exit), "activate",
                       GTK_SIGNAL_FUNC (on_exit_activate),
-                      NULL);
-  gtk_signal_connect (GTK_OBJECT (help2), "activate",
-                      GTK_SIGNAL_FUNC (on_help2_activate),
                       NULL);
   gtk_signal_connect (GTK_OBJECT (about), "activate",
                       GTK_SIGNAL_FUNC (on_about_activate),
@@ -354,7 +345,7 @@ create_window3 (void)
 
   window3 = gtk_window_new (GTK_WINDOW_DIALOG);
   gtk_object_set_data (GTK_OBJECT (window3), "window3", window3);
-  gtk_window_set_title (GTK_WINDOW (window3), _("window3"));
+  gtk_window_set_title (GTK_WINDOW (window3), _("Eta: confirm"));
   gtk_window_set_position (GTK_WINDOW (window3), GTK_WIN_POS_MOUSE);
   gtk_window_set_modal (GTK_WINDOW (window3), TRUE);
 

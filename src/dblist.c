@@ -10,7 +10,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#include <glib.h>
+#include <gtk/gtk.h>
 
 #include "dblist.h"
 
@@ -39,13 +39,13 @@ parse_database (xmlDocPtr doc, xmlNodePtr cur)
     return(db);
 }
 
-static GSList*
+GList*
 parse_dblistfile(char *filename)
 {
     xmlDocPtr doc;
     xmlNodePtr cur;
     dblist *db;
-    GSList *ret = NULL;
+    GList *ret = NULL;
 
     /*
      * build an XML tree from a the file;
@@ -77,16 +77,15 @@ parse_dblistfile(char *filename)
 	    return(NULL);
 	}
 	db = parse_database(doc, cur->xmlChildrenNode);
-	ret = g_slist_append(ret, db);
+	ret = g_list_append(ret, db);
 	/* print_database(db); */
 	cur = cur->next;
     }
     
-    
     return(ret);
 }
 
-static void
+void
 print_database (dblist *db)
 {
     if (db != NULL) {
@@ -99,22 +98,31 @@ print_database (dblist *db)
     }
 }
 
-static void
-dblist_print (gpointer data, gpointer user_data)
+void
+print_dblist (gpointer data, gpointer user_data)
 {
     dblist *db = (dblist*) data;
     print_database(db);
 }
 
-static void
-usage(void)
+/*
+ * Set text and data for list of Z39.50 databases.
+ */
+void dblist_append (GList *list, GtkWidget *clist)
 {
-    printf("Usage: dblist dblist.xml\n");
+    int i;
+    gchar *text[] = {0};
+    for (i = 0; list != NULL; i++, list = list->next) {
+	text[0] = (gchar *) ((dblist*) (list->data))->name;
+	gtk_clist_append(GTK_CLIST(clist), text);
+	gtk_clist_set_row_data(GTK_CLIST(clist), i, list->data);
+    }
 }
-    
+
+#ifdef DEBUG
 int main (int argc, char *argv[])
 {
-    GSList *dblist = NULL;
+    GList *dblist = NULL;
 
     if (argc < 2) {
 	usage();
@@ -124,6 +132,13 @@ int main (int argc, char *argv[])
     if (dblist == NULL)
 	fprintf( stderr, "Error parsing file '%s'\n", argv[1]);
 
-    g_slist_foreach(dblist, dblist_print, NULL);
+    g_list_foreach(dblist, dblist_print, NULL);
     return(0);
 }
+
+static void
+usage(void)
+{
+    printf("Usage: dblist dblist.xml\n");
+}
+#endif

@@ -21,7 +21,7 @@
     <handler>gtk_main_quit</handler>
     <last_modification_time>Mon, 18 Jun 2001 17:41:39 GMT</last_modification_time>
   </signal>
-  <title>Connect</title>
+  <title>Eta</title>
   <type>GTK_WINDOW_TOPLEVEL</type>
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
@@ -154,7 +154,7 @@
 
     <widget>
       <class>GtkScrolledWindow</class>
-      <name>scrolledwindow1</name>
+      <name>scrolledwindow4</name>
       <hscrollbar_policy>GTK_POLICY_ALWAYS</hscrollbar_policy>
       <vscrollbar_policy>GTK_POLICY_ALWAYS</vscrollbar_policy>
       <hupdate_policy>GTK_UPDATE_CONTINUOUS</hupdate_policy>
@@ -166,27 +166,34 @@
       </child>
 
       <widget>
-	<class>GtkViewport</class>
-	<name>viewport1</name>
+	<class>GtkCList</class>
+	<name>clist1</name>
+	<can_focus>True</can_focus>
+	<signal>
+	  <name>select_row</name>
+	  <handler>on_clist1_select_row</handler>
+	  <data>entry1</data>
+	  <last_modification_time>Thu, 12 Jul 2001 01:59:13 GMT</last_modification_time>
+	</signal>
+	<columns>1</columns>
+	<column_widths>80</column_widths>
+	<selection_mode>GTK_SELECTION_SINGLE</selection_mode>
+	<show_titles>False</show_titles>
 	<shadow_type>GTK_SHADOW_IN</shadow_type>
 
 	<widget>
-	  <class>GtkList</class>
-	  <name>list2</name>
-	  <selection_mode>GTK_SELECTION_SINGLE</selection_mode>
+	  <class>GtkLabel</class>
+	  <child_name>CList:title</child_name>
+	  <name>label2</name>
+	  <label>label2</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
 	</widget>
       </widget>
-    </widget>
-
-    <widget>
-      <class>GtkList</class>
-      <name>list1</name>
-      <selection_mode>GTK_SELECTION_SINGLE</selection_mode>
-      <child>
-	<padding>0</padding>
-	<expand>False</expand>
-	<fill>False</fill>
-      </child>
     </widget>
   </widget>
 </widget>
@@ -194,7 +201,7 @@
 <widget>
   <class>GtkWindow</class>
   <name>window2</name>
-  <title>window2</title>
+  <title>Eta: Search</title>
   <type>GTK_WINDOW_TOPLEVEL</type>
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
@@ -223,11 +230,6 @@
       <widget>
 	<class>GtkMenuItem</class>
 	<name>file1</name>
-	<signal>
-	  <name>activate</name>
-	  <handler>on_file1_activate</handler>
-	  <last_modification_time>Fri, 29 Jun 2001 15:30:09 GMT</last_modification_time>
-	</signal>
 	<label>File</label>
 	<right_justify>False</right_justify>
 
@@ -252,11 +254,6 @@
       <widget>
 	<class>GtkMenuItem</class>
 	<name>help2</name>
-	<signal>
-	  <name>activate</name>
-	  <handler>on_help2_activate</handler>
-	  <last_modification_time>Fri, 29 Jun 2001 15:39:51 GMT</last_modification_time>
-	</signal>
 	<label>Help</label>
 	<right_justify>True</right_justify>
 
@@ -383,7 +380,7 @@
 <widget>
   <class>GtkWindow</class>
   <name>window3</name>
-  <title>window3</title>
+  <title>Eta: confirm</title>
   <type>GTK_WINDOW_DIALOG</type>
   <position>GTK_WIN_POS_MOUSE</position>
   <modal>True</modal>

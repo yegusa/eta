@@ -37,3 +37,22 @@ on_entry1_activate                     (GtkEditable     *editable,
 void
 on_entry2_activate                     (GtkEditable     *editable,
                                         gpointer         user_data);
+
+void
+on_list2_select_child                  (GtkList         *list,
+                                        GtkWidget       *widget,
+                                        gpointer         user_data);
+
+void
+on_clist1_select_row                   (GtkCList        *clist,
+                                        gint             row,
+                                        gint             column,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);
+
+void
+on_clist1_select_row                   (GtkCList        *clist,
+                                        gint             row,
+                                        gint             column,
+                                        GdkEvent        *event,
+                                        gpointer         user_data);

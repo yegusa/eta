@@ -7,7 +7,7 @@
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-
+#include "z3950.h"
 
 void
 on_exit_activate                       (GtkMenuItem     *menuitem,
@@ -33,7 +33,10 @@ on_button1_clicked                     (GtkButton       *button,
     g_print("on_button1_clicked: %s\n",
 	    gtk_entry_get_text(GTK_ENTRY(user_data)));
 
-    
+    if (! cmd_open(gtk_entry_get_text(GTK_ENTRY(user_data)))) {
+	puts("cmd_open: failed\n");
+    }
+
 
 }
 

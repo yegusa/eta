@@ -135,6 +135,11 @@
 	<class>GtkEntry</class>
 	<name>entry1</name>
 	<can_focus>True</can_focus>
+	<signal>
+	  <name>activate</name>
+	  <handler>on_entry1_activate</handler>
+	  <last_modification_time>Sat, 07 Jul 2001 03:17:36 GMT</last_modification_time>
+	</signal>
 	<editable>True</editable>
 	<text_visible>True</text_visible>
 	<text_max_length>0</text_max_length>
@@ -274,6 +279,11 @@
 	<class>GtkEntry</class>
 	<name>entry2</name>
 	<can_focus>True</can_focus>
+	<signal>
+	  <name>activate</name>
+	  <handler>on_entry2_activate</handler>
+	  <last_modification_time>Sat, 07 Jul 2001 03:18:19 GMT</last_modification_time>
+	</signal>
 	<editable>True</editable>
 	<text_visible>True</text_visible>
 	<text_max_length>0</text_max_length>

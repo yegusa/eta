@@ -170,6 +170,9 @@ create_window1 (void)
   gtk_signal_connect (GTK_OBJECT (button1), "clicked",
                       GTK_SIGNAL_FUNC (on_button1_clicked),
                       entry1);
+  gtk_signal_connect (GTK_OBJECT (entry1), "activate",
+                      GTK_SIGNAL_FUNC (on_entry1_activate),
+                      NULL);
 
   gtk_window_add_accel_group (GTK_WINDOW (window1), accel_group);
 
@@ -292,6 +295,9 @@ create_window2 (void)
   gtk_signal_connect (GTK_OBJECT (button2), "clicked",
                       GTK_SIGNAL_FUNC (on_button2_clicked),
                       entry2);
+  gtk_signal_connect (GTK_OBJECT (entry2), "activate",
+                      GTK_SIGNAL_FUNC (on_entry2_activate),
+                      NULL);
 
   return window2;
 }

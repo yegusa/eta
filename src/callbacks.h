@@ -29,3 +29,11 @@ on_button1_clicked                     (GtkButton       *button,
 void
 on_button2_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
+
+void
+on_entry1_activate                     (GtkEditable     *editable,
+                                        gpointer         user_data);
+
+void
+on_entry2_activate                     (GtkEditable     *editable,
+                                        gpointer         user_data);

@@ -69,7 +69,7 @@ changequote(,)dnl
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
   *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall" ;;
+  *) CFLAGS="$CFLAGS -Wall -pedantic" ;;
   esac
 fi
 changequote([,])dnl

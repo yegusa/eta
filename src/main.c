@@ -36,7 +36,7 @@ main (int argc, char *argv[])
   window1 = create_window1 ();
   gtk_widget_show (window1);
 
+  initialize();
   gtk_main ();
   return 0;
 }
-

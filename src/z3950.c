@@ -1947,7 +1947,7 @@ int cmd_packagename(char* arg) {
     return 1;
 };
 
-static void initialize(void)
+void initialize(void)
 {
 #if YAZ_MODULE_ccl
     FILE *inf;
